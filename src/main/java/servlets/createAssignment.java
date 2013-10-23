@@ -1,0 +1,79 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servlets;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import model.Assignment;
+import model.bean.UserBean;
+import sun.misc.IOUtils;
+
+/**
+ *
+ * @author z3385128
+ */
+public class createAssignment {
+
+	UserBean userBean = null;
+	String assignment_name = null;
+	String date_str = null;
+	Date deadline = null;
+	
+	String dateFormat = "dd/MM/yyyy HH:mm:ss";
+	SimpleDateFormat sdf = new SimpleDateFormat("dateFormat");
+	
+	Assignment newAssignment = new Assignment();
+	userBean  = (UserBean) request.getSession().getAttribute("userBean");
+	
+	assignment_name  = request.getParameter("assignment_name");
+	date_str  = request.getParameter("deadline");
+	deadline  = sdf.parse(date_str + " 23:59:59");
+	
+	DiskFileItemFactory fileFactory = new DiskFileItemFactory();
+	File filesDir = (File) getServletContext().getAttribute("FILES_DIR_FILE");
+	fileFactory.setRepository (filesDir);
+	this.uploader  = new ServletFileUpload(fileFactory);
+	
+	String fileName = "";
+	InputStream fileContent = null;
+	
+	int newAssNo = userBean.getAssignments().size() + 1;
+	
+	try {
+        	List<FileItem> multiparts = uploader.parseRequest(request);
+        	Iterator<FileItem> fileItemsIterator = multiparts.iterator();
+        	while(fileItemsIterator.hasNext()){
+        		FileItem fileItem = fileItemsIterator.next();
+        		fileName = fileItem.getName();
+				
+				String splittedFileName[] = fileName.split(".");
+				String specPath1 = "src" + File.separator + "main" + File.separator + "webapp" + File.separator;
+				String specPath2 = "assignments" + File.separator + "assignment" + newAssNo + "." + splittedFileName[splittedFileName.length-1];
+				
+        		fileContent = item.getInputStream();
+				
+				File spec = new File(specPath);
+				FileOutputStream fws = new FileOutputStream(spec);
+				fws.write(IOUtils.readFully(fileContent, -1, false));
+				
+        	}
+
+        } catch (Exception ex) {
+        	
+        	RequestDispatcher rd = request.getRequestDispatcher("online-BPEL-IDE.jsp");
+    	    rd.forward(request, response);
+        }
+	
+	newAssignment.setAssNo(newAssNo);
+	newAssignment.setAssName (assignment_name);
+	newAssignment.setDeadline (deadline);
+	newAssignment.setSpecification("localhost:8080/" + specPath2);
+}
