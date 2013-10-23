@@ -513,14 +513,14 @@ public class MongoDBConnector {
      * Extract all project names and ids from a database list.
      *
      * @param list the database list.
-     * @return a list of project, or return null if list is empty.
+     * @return a list of project, or return an empty list if list is empty.
      */
     private ArrayList<Project> extractProjects(BasicDBList list) {
         if (list == null) {
-            return null;
+            return new ArrayList<Project>();
         }
         if (list.size() == 0) {
-            return null;
+            return new ArrayList<Project>();
         }
 
         ArrayList<Project> projects = new ArrayList<Project>();
