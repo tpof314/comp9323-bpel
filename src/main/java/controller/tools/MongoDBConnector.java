@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bson.types.ObjectId;
+
 import model.Assignment;
 import model.Project;
 import model.Submission;
@@ -568,8 +570,14 @@ public class MongoDBConnector {
             BasicDBObject submissionDBObj = (BasicDBObject) list.get(i);
             String stuName = (String) submissionDBObj.get(STUDENT_NAME);
             String projID = (String) submissionDBObj.get(PROJECT_ID);
-			Date submitTime = (Date) submissionDBObj.get(SUBMIT_TIME);;
-			double mark = (Double) submissionDBObj.get(MARK);
+			Date submitTime = (Date) submissionDBObj.get(SUBMIT_TIME);
+			double mark = 0;
+			if (submissionDBObj.get(MARK) instanceof Double) {
+				mark = (Double) submissionDBObj.get(MARK);
+			}
+			else {
+				mark = (Integer) submissionDBObj.get(MARK);
+			}
 			
             Submission submission = new Submission(stuName, projID, submitTime, mark);
             records.add(submission);
@@ -598,7 +606,13 @@ public class MongoDBConnector {
 			if (student.equals(stuName)) {
 				String projID = (String) submissionDBObj.get(PROJECT_ID);
 				Date submitTime = (Date) submissionDBObj.get(SUBMIT_TIME);;
-				double mark = (Double) submissionDBObj.get(MARK);
+				double mark = 0;
+				if (submissionDBObj.get(MARK) instanceof Double) {
+					mark = (Double) submissionDBObj.get(MARK);
+				}
+				else {
+					mark = (Integer) submissionDBObj.get(MARK);
+				}
 				
 				Submission submission = new Submission(stuName, projID, submitTime, mark);
 				records.add(submission);
