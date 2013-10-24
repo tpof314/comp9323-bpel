@@ -178,9 +178,6 @@ $(function() {
 					if (extension == "bpel" || extension == "soap" || extension == "txt" || extension == "wsdl" || extension == "xml") {
 						$("#list_area").load("loading.jsp #list_area");
 						upload_a_file();
-						$("#list_area").load("online-BPEL-IDE.jsp #list_area");
-						$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
-						$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
 						$(this).dialog("close");
 					}
 					else if (extension == "")
@@ -581,6 +578,7 @@ $(function() {
 			$("#submit_a_project_dialog_list p").each(function() {
 				$(this).attr("style", "background: white");
 			});
+			$("#assignment_list_area_projects button.submit").tooltip().tooltip("close");
 		}
 	});
 	$("#submit_a_project_no_project_dialog").dialog({
@@ -871,8 +869,16 @@ function upload_a_file() {
 		url: "uploadFile",
 		secureuri: false,
 		fileElementId: "upload_a_file_input",
-		dataType: "json"
+		dataType: "json",
+		success: function (data) {
+			$("#list_area").load("online-BPEL-IDE.jsp #list_area");
+			$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
+			$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
+		}
 	});
+	$("#list_area").load("online-BPEL-IDE.jsp #list_area");
+	$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
+	$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
 	return false;
 }
 function remove_a_project(id) {
@@ -883,7 +889,7 @@ function remove_a_project(id) {
 }
 function download_a_project(id) {
 	project_reset_action();
-	window.location.href = "http://apache.mirror.uber.com.au/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.zip";
+	//window.location.href = "http://apache.mirror.uber.com.au/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.zip";
 }
 function remove_an_assignment(assignment_id) {
 	$("#remove_an_assignment_dialog").text("Do you really want to remove \"" + $("#aid-" + assignment_id + " span.name").text() + "\" ?");

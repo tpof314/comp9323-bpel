@@ -112,7 +112,7 @@
 									<% } %>
 									<% if (userBean.getUser().getUserType().equals("student")) { %>
 									<td>
-										<button class="submit" onclick="submit_a_project(<%= i %>)">Submit</button>
+										<button class="submit" title="Submit a project" style="background: url('images/submit-icon.png') center no-repeat; height: 20px; width: 20px" onclick="submit_a_project(<%= i %>)"></button>
 									</td>
 									<% } %>
 								</tr>
