@@ -24,8 +24,12 @@ public class removeAssignment extends HttpServlet {
 		UserBean userBean = null;
 		userBean = (UserBean)request.getSession().getAttribute("userBean");
 		int assignment_id = Integer.valueOf(request.getParameter("assignment_id"));
+		boolean flag = false;
 		
-		userBean.assignmentController.removeAssignment(userBean.getUser(), userBean.getAssignments().get(assignment_id));
+		flag = userBean.assignmentController.removeAssignment(userBean.getUser(), userBean.getAssignments().get(assignment_id));
+		
+		if(flag)
+			userBean.getAssignments().remove(assignment_id);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request, response);

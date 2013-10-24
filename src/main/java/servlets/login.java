@@ -43,6 +43,9 @@ public class login extends HttpServlet {
 	        rd.forward(request, response);
 		}
 		else {
+			java.io.File userDirFd = new java.io.File(user.getUserDir());
+			userDirFd.mkdir();
+			
 			userBean.setUser(user);
 	        userBean.setAssignments(userBean.assignmentController.getUserAssignments(user));
 			request.getSession().setAttribute("userBean", userBean);
