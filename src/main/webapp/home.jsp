@@ -53,7 +53,6 @@
 									<option>Actions</option>
 									<option>Download</option>
 									<option onclick="remove_a_project(<%= i %>)" >Remove</option>
-									<option>Rename</option>
 								</select>
 							</p>
 						</div>
@@ -64,19 +63,30 @@
 			</div>
 			<div id="assignment_list_area">
 				<div class="align_right">
+					<% if (userBean.getUser().getUserType().equals("teacher")) { %>
 					<button class="new" title="Create a new assignment">New Assignment</button>
+					<% } %>
 				</div>
 				<br/>
 				<div id="assignment_list_area_projects">
 					<% for (int i = 0; i < userBean.getAssignments().size(); ++i) { %>
 					<h3 id="aid-<%= i %>" style="font: bold 15px/24px Arial, Helvetica, sans-serif">
+						<% if (userBean.getUser().getUserType().equals("teacher")) { %>
 						<div style="float: left">
 							<img src="images/assignment-icon.png">&nbsp;
+							<span class="name">Assignment <%= userBean.getAssignments().get(i).getAssNo() %>: </span>
 							<span class="name"><%= userBean.getAssignments().get(i).getAssName() %></span>
 						</div>
 						<div class="align_right">
 							<button class="remove" title="Remove this assignment" style="background: url('images/remove-icon.png') center no-repeat; height: 20px; width: 20px; border: none" onclick="remove_an_assignment(<%= i %>)"></button>
 						</div>
+						<% } else { %>
+						<div>
+							<img src="images/assignment-icon.png">&nbsp;
+							<span class="name">Assignment <%= userBean.getAssignments().get(i).getAssNo() %>: </span>
+							<span class="name"><%= userBean.getAssignments().get(i).getAssName() %></span>
+						</div>
+						<% } %>
 					</h3>
 					<div id="aid_div-<%= i %>">
 						<table class="assignment_information" style="font: 15px/24px Arial, Helvetica, sans-serif">
@@ -86,7 +96,7 @@
 							</tr>
 							<tr>
 								<td>Deadline:</td>
-								<td><%= userBean.getAssignments().get(i).getDeadline() %></td>
+								<td colspan="2"><%= userBean.getAssignments().get(i).getDeadline() %></td>
 							</tr>
 							<tr>
 								<td>Specification:</td>
@@ -95,7 +105,12 @@
 							<tr>
 								<td>Submission:</td>
 								<% if (userBean.getAssignments().get(i).getSubmitRecord().size() == 0) { %>
-								<td style="color: red">No submission record</td>
+								<td style="color: red">No submission record&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<% } %>
+								<% if (userBean.getUser().getUserType().equals("student")) { %>
+								<td>
+									<button class="submit" onclick="submit_a_project(<%= i %>)">Submit</button>
+								</td>
 								<% } %>
 							</tr>
 						</table>
@@ -103,20 +118,42 @@
 						<table class="submission" style="font: 15px/24px Arial, Helvetica, sans-serif" border="1">
 							<tr>
 								<td width="100px">&nbsp;Student</td>
+								<% if (userBean.getUser().getUserType().equals("teacher")) { %>
 								<td width="100px">&nbsp;Project</td>
+								<% } %>
 								<td width="100px">&nbsp;Mark</td>
 								<td>&nbsp;Last Submission</td>
 							</tr>
-							<% for (int j = 0; j < userBean.getAssignments().get(i).getSubmitRecord().size(); ++j) { %>
-							<tr>
-								<td>&nbsp;<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getStuName() %></td>
-								<td>&nbsp;<a href="online-BPEL-IDE.jsp?submission_id=<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getProjID() %>">Details</a></td>
-								<td>
-									<input class="mark" style="width: 67px" type="text" value="<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getMark() %>">
-									<span><button title="Update mark" style="background: url('images/mark-icon.png') center no-repeat; height: 25px; width: 25px"></button></span>
-								</td>
-								<td>&nbsp;<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getSubmitTime()%>&nbsp;</td>
-							</tr>
+							<% if (userBean.getUser().getUserType().equals("teacher")) { %>
+								<% for (int j = 0; j < userBean.getAssignments().get(i).getSubmitRecord().size(); ++j) { %>
+								<tr>
+									<td>&nbsp;<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getStuName() %></td>
+									<td>&nbsp;<a href="online-BPEL-IDE.jsp?submission_id=<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getProjID() %>" target="_blank">Details</a></td>
+									<td id="mark-<%= i %>-<%= j %>">
+									<% if (userBean.getAssignments().get(i).getSubmitRecord().get(j).getMark() < 0) { %>
+										<input class="mark" style="width: 67px" type="text" value="-" onFocus="if(value=defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}" onKeyUp="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onKeyDown="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+									<% } else { %>
+										<input class="mark" style="width: 67px" type="text" value="<%= (int) userBean.getAssignments().get(i).getSubmitRecord().get(j).getMark() %>" onFocus="if(value=defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}" onKeyUp="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onKeyDown="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+									<% } %>
+										<span><button title="Update mark" style="background: url('images/mark-icon.png') center no-repeat; height: 25px; width: 25px" onclick="update_mark(<%= i %>, <%= j %>)"></button></span>
+									</td>
+									<td>&nbsp;<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getSubmitTime()%>&nbsp;</td>
+								</tr>
+								<% } %>
+							<% } else { %>
+								<% for (int j = 0; j < userBean.getAssignments().get(i).getSubmitRecord().size(); ++j) { %>
+								<tr>
+									<td>&nbsp;<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getStuName() %></td>
+									<td>
+									<% if (userBean.getAssignments().get(i).getSubmitRecord().get(j).getMark() < 0) { %>
+										&nbsp;-
+									<% } else { %>
+										&nbsp;<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getMark() %>
+									<% } %>
+									</td>
+									<td>&nbsp;<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getSubmitTime()%>&nbsp;</td>
+								</tr>
+								<% } %>
 							<% } %>
 						</table>
 						<% } %>
@@ -182,6 +219,21 @@
 		</div>
 		<div id="create_a_new_assignment_existed_dialog">
 			Assignment already existed !
+		</div>
+		<div id="submit_a_project_dialog">
+			<p>Please select a project to upload</p>
+			<div id="submit_a_project_dialog_list">
+				<% for (int i = 0; i < userBean.getUser().getUserProjects().size(); ++i) { %>
+					<p id="sid-<%= i %>" onclick="submit_a_project_dialog_list_select(this.id)">
+						<img src="images/project-icon.png">&nbsp;
+						<span class="name"><%= userBean.getUser().getUserProjects().get(i).getProjName() %></span>
+						<span class="number" style="display: none"><%= i %></span>
+					</p>
+				<% } %>
+	        </div>
+		</div>
+		<div id="submit_a_project_no_project_dialog">
+			Please select a project to submit !
 		</div>
 	</body>
 </html>

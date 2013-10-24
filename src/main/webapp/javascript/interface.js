@@ -364,6 +364,7 @@ $(function() {
 					else {
 						$("#project_list_area_projects").load("loading.jsp #project_list_area_projects");
 						$("#project_list_area_projects").load("createProject?project_name=" + $("#new_project_name").val() + " #project_list_area_projects");
+						$("#submit_a_project_dialog").load("home.jsp #submit_a_project_dialog");
 						$(this).dialog("close");
 					}
 				}
@@ -418,6 +419,7 @@ $(function() {
 				$(this).dialog("close");
 				$("#project_list_area_projects").load("loading.jsp #project_list_area_projects");
 				$("#project_list_area_projects").load("removeProject?id=" + $(this).data("id") + " #project_list_area_projects");
+				$("#submit_a_project_dialog").load("home.jsp #submit_a_project_dialog");
 			},
 			Cancel : function() {
 				$(this).dialog("close");
@@ -539,6 +541,50 @@ $(function() {
 		},
 		close: function() {
 			$("#assignment_list_area_projects button.remove").tooltip().tooltip("close");
+		}
+	});
+	$("#submit_a_project_dialog").dialog({
+		autoOpen: false,
+		height: 350,
+		width: 500,
+		modal: true,
+		resizable: false,
+		title: "Submit a project",
+		closeText: "Close",
+		buttons: {
+			Submit : function() {
+				var project_id = "null";
+				$("#submit_a_project_dialog_list p").each(function() {
+					if ($(this).attr("style") == "background: lightblue")
+						project_id = $(this).find("span.number").text();
+				});
+				if (project_id == "null")
+					$("#submit_a_project_no_project_dialog").dialog("open");
+				else {
+					//
+					$(this).dialog("close");
+				}
+			},
+			Cancel : function() {
+				$(this).dialog("close");
+			}
+		},
+		close: function() {
+			;
+		}
+	});
+	$("#submit_a_project_no_project_dialog").dialog({
+		autoOpen: false,
+		height: 150,
+		width: 300,
+		modal: true,
+		resizable: false,
+		title: "Error",
+		closeText: "Close",
+		buttons: {
+			OK : function() {
+				$(this).dialog("close");
+			}
 		}
 	});
 	var form = create_a_new_file_dialog.find("form").submit(function(event) {
@@ -825,10 +871,19 @@ function remove_a_project(id) {
 	$("#remove_a_project_dialog").data("id", id);
 	$("#remove_a_project_dialog").dialog("open");
 }
-function remove_an_assignment(id) {
+function remove_an_assignment(assignment_id) {
 	$("#remove_an_assignment_dialog").text("Do you really want to remove \"" + $("#aid-" + id + " span.name").text() + "\" ?");
-	$("#remove_an_assignment_dialog").data("id", id);
+	$("#remove_an_assignment_dialog").data("assignment_id", assignment_id);
 	$("#remove_an_assignment_dialog").dialog("open");
+}
+function submit_a_project(assignment_id) {
+	$("#submit_a_project_dialog").load("loading.jsp #submit_a_project_dialog");
+	$("#submit_a_project_dialog").load("home.jsp #submit_a_project_dialog");
+	$("#submit_a_project_dialog").data("assignment_id", assignment_id);
+	$("#submit_a_project_dialog").dialog("open");
+}
+function update_mark(assignment_id, student_id) {
+	//
 }
 function project_onmouseover(id) {
 	var p = document.getElementById(id);
@@ -954,6 +1009,12 @@ function execute_the_project_dialog_files_select(id) {
 }
 function execute_the_project_dialog_services_select(id) {
 	$("#execute_the_project_dialog_service p").each(function() {
+		$(this).attr("style", "background: white");
+	});
+	$("#" + id).attr("style", "background: lightblue");
+}
+function submit_a_project_dialog_list_select(id) {
+	$("#submit_a_project_dialog_list p").each(function() {
 		$(this).attr("style", "background: white");
 	});
 	$("#" + id).attr("style", "background: lightblue");

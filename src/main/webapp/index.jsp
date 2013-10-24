@@ -17,7 +17,7 @@
                 <h2>Welcome to Online BEPL Integrated Development Environment</h2>
             </header>
             <section>				
-                <div id="container_login_and_register" >
+                <div id="container_login_and_register">
                     <a class="hiddenanchor" id="toregister"></a>
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
@@ -60,10 +60,6 @@
                                     <label for="password-register" class="youpasswd" data-icon="p">Your password</label>
                                     <input id="password-register" name="password" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
-                                <p> 
-                                    <label for="password-register_confirm" class="youpasswd" data-icon="p">Please confirm your password</label>
-                                    <input id="password-register_confirm" name="password_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
-                                </p>
                                 <p class="signin button"> 
 									<input type="submit" value="Sign up"/> 
 								</p>
@@ -74,7 +70,7 @@
                             </form>
                         </div>
                     </div>
-                </div>  
+                </div>
             </section>
         </div>
     </body>

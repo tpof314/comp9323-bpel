@@ -410,3 +410,28 @@ body {
 	padding-top: 30px;
 	padding-bottom: 30px;
 }
+#submit_a_project_dialog {
+	font: 15px/24px Arial, Helvetica, sans-serif;
+}
+#submit_a_project_dialog_list {
+	overflow: auto;
+	height: 135px;
+	width: 100%;
+	border: 1px solid #b5b5b5;
+	border-left: none;
+	border-right: none;
+	font: 15px/24px Arial, Helvetica, sans-serif;
+}
+#submit_a_project_dialog_list p {
+	height: 24px;
+	cursor: pointer;
+}
+#submit_a_project_dialog_list img {
+	vertical-align: sub;
+}
+#submit_a_project_no_project_dialog {
+	text-align: center;
+	vertical-align: center;
+	padding-top: 20px;
+	padding-bottom: 30px;
+}

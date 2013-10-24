@@ -26,5 +26,11 @@
 				<img src="images/loading.gif">
 			</div>
 		</div>
+		<div id="submit_a_project_dialog">
+			<p>Please select a project to upload</p>
+			<div id="submit_a_project_dialog_list" style="text-align: center">
+				<img src="images/loading.gif" height="130px" width="130px" >
+	        </div>
+		</div>
 	</body>
 </html>
