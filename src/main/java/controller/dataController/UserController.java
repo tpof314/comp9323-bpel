@@ -84,7 +84,7 @@ public class UserController {
         }
 
         readmefd.delete();
-	projfd.delete();
+        projfd.delete();
         user.getUserProjects().add(proj);
         
         return true;

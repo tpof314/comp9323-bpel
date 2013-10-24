@@ -32,5 +32,10 @@
 				<img src="images/loading.gif" height="130px" width="130px" >
 	        </div>
 		</div>
+		<div id="mark">
+			<div id="submit_a_project_dialog_list" style="text-align: center; border: none">
+				<img src="images/loading.gif" height="130px" width="130px" >
+	        </div>
+		</div>
 	</body>
 </html>

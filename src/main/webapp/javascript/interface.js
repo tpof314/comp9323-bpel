@@ -533,7 +533,12 @@ $(function() {
 			Remove : function() {
 				$(this).dialog("close");
 				$("#assignment_list_area_projects").load("loading.jsp #project_list_area_projects");
-				//$("#project_list_area_projects").load("removeProject?id=" + $(this).data("id") + " #project_list_area_projects");
+				$("#assignment_list_area_project").load("removeAssignment?assignment_id=" + $(this).data("assignment_id") + " #assignment_list_area_projects", function() {
+					$("#assignment_list_area_projects").accordion({
+						heightStyle: "content"
+					});
+					$("#assignment_list_area_projects button").button();
+				});
 			},
 			Cancel : function() {
 				$(this).dialog("close");
@@ -561,7 +566,10 @@ $(function() {
 				if (project_id == "null")
 					$("#submit_a_project_no_project_dialog").dialog("open");
 				else {
-					//
+					$("#aid_div-" + $(this).data("assignment_id")).load("loading.jsp #mark");
+					$("#aid_div-" + $(this).data("assignment_id")).load("submitProject?assignment_id=" + $(this).data("assignment_id") + "&project_id=" + project_id + " #aid_div-" + $(this).data("assignment_id"), function() {
+						$("#assignment_list_area_projects button").button();
+					});
 					$(this).dialog("close");
 				}
 			},
@@ -570,7 +578,9 @@ $(function() {
 			}
 		},
 		close: function() {
-			;
+			$("#submit_a_project_dialog_list p").each(function() {
+				$(this).attr("style", "background: white");
+			});
 		}
 	});
 	$("#submit_a_project_no_project_dialog").dialog({
@@ -872,7 +882,7 @@ function remove_a_project(id) {
 	$("#remove_a_project_dialog").dialog("open");
 }
 function remove_an_assignment(assignment_id) {
-	$("#remove_an_assignment_dialog").text("Do you really want to remove \"" + $("#aid-" + id + " span.name").text() + "\" ?");
+	$("#remove_an_assignment_dialog").text("Do you really want to remove \"" + $("#aid-" + assignment_id + " span.name").text() + "\" ?");
 	$("#remove_an_assignment_dialog").data("assignment_id", assignment_id);
 	$("#remove_an_assignment_dialog").dialog("open");
 }
@@ -883,7 +893,11 @@ function submit_a_project(assignment_id) {
 	$("#submit_a_project_dialog").dialog("open");
 }
 function update_mark(assignment_id, student_id) {
-	//
+	var mark = $("#mark-" + assignment_id + "-" + student_id).val();
+	$("#aid_div-" + assignment_id).load("loading.jsp #mark");
+	$("#aid_div-" + assignment_id).load("updateMark?assignment_id=" + assignment_id + "&student_id=" + student_id + "&mark=" + mark + " #aid_div-" + assignment_id, function() {
+		$("#assignment_list_area_projects button").button();
+	});
 }
 function project_onmouseover(id) {
 	var p = document.getElementById(id);

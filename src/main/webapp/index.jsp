@@ -22,7 +22,7 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form method="post" action="home.jsp" autocomplete="on"> 
+                            <form method="post" action="login" autocomplete="on"> 
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" >Your username</label>
@@ -46,7 +46,7 @@
                             </form>
                         </div>
                         <div id="register" class="animate form">
-                            <form method="post" action="home.jsp" autocomplete="on"> 
+                            <form method="post" action="register" autocomplete="on"> 
                                 <h1>Sign up</h1> 
                                 <p> 
                                     <label for="username-register" class="uname" data-icon="u">Your username</label>
