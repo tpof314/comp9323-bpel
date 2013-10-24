@@ -881,14 +881,19 @@ function remove_a_project(id) {
 	$("#remove_a_project_dialog").data("id", id);
 	$("#remove_a_project_dialog").dialog("open");
 }
+function download_a_project(id) {
+	project_reset_action();
+	window.location.href = "http://apache.mirror.uber.com.au/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.zip";
+}
 function remove_an_assignment(assignment_id) {
 	$("#remove_an_assignment_dialog").text("Do you really want to remove \"" + $("#aid-" + assignment_id + " span.name").text() + "\" ?");
 	$("#remove_an_assignment_dialog").data("assignment_id", assignment_id);
 	$("#remove_an_assignment_dialog").dialog("open");
 }
 function submit_a_project(assignment_id) {
-	$("#submit_a_project_dialog").load("loading.jsp #submit_a_project_dialog");
-	$("#submit_a_project_dialog").load("home.jsp #submit_a_project_dialog");
+	$("#submit_a_project_dialog").load("loading.jsp #submit_a_project_dialog", function() {
+		$("#submit_a_project_dialog").load("home.jsp #submit_a_project_dialog");
+	});
 	$("#submit_a_project_dialog").data("assignment_id", assignment_id);
 	$("#submit_a_project_dialog").dialog("open");
 }

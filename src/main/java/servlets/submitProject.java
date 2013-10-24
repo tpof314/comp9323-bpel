@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Submission;
 import model.bean.UserBean;
 
 /**
@@ -25,8 +26,17 @@ public class submitProject extends HttpServlet {
 		userBean = (UserBean)request.getSession().getAttribute("userBean");
 		int assignment_id = Integer.valueOf(request.getParameter("assignment_id"));
 		int project_id = Integer.valueOf(request.getParameter("project_id"));
+		boolean flag = false;
 		
-		userBean.assignmentController.submitAssignment(userBean.getUser(), userBean.getAssignments().get(assignment_id), userBean.getAssignments().get(assignment_id).getSubmitRecord().get(0), userBean.getUser().getUserProjects().get(project_id));
+		if (userBean.getAssignments().get(assignment_id).getSubmitRecord().size() == 0) {
+			Submission newSub = new Submission();
+			newSub.setStuName(userBean.getUser().getUserName());
+			flag = userBean.assignmentController.submitAssignment(userBean.getUser(), userBean.getAssignments().get(assignment_id), newSub, userBean.getUser().getUserProjects().get(project_id));
+			if (flag)
+				userBean.getAssignments().get(assignment_id).getSubmitRecord().add(newSub);
+		}
+		else
+			userBean.assignmentController.submitAssignment(userBean.getUser(), userBean.getAssignments().get(assignment_id), userBean.getAssignments().get(assignment_id).getSubmitRecord().get(0), userBean.getUser().getUserProjects().get(project_id));
 		
 		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request, response);

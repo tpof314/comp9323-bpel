@@ -53,8 +53,8 @@
 							<p class="action">
 								<select class="text ui-widget-content ui-corner-all">
 									<option>Actions</option>
-									<option>Download</option>
-									<option onclick="remove_a_project(<%= i %>)" >Remove</option>
+									<option onclick="download_a_project(<%= i %>)">Download</option>
+									<option onclick="remove_a_project(<%= i %>)">Remove</option>
 								</select>
 							</p>
 						</div>
