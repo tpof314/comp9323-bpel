@@ -63,7 +63,12 @@
 			University of New South Wales&nbsp;&nbsp;&nbsp;&nbsp;E-Enterprise Project
 		</div>
 		<div id="user_information">
-			Log As: <%= userBean.getUser().getUserName() %>&nbsp;&nbsp;&nbsp;&nbsp;Status: <%= userBean.getUser().getUserType() %>&nbsp;
+			Log As: <%= userBean.getUser().getUserName() %>&nbsp;&nbsp;&nbsp;&nbsp;
+			Status: <% if (userBean.getUser().getUserType().equals("teacher")) { %>
+						Teacher
+					<% } else if (userBean.getUser().getUserType().equals("student")){%>
+						Student
+					<% } %>
 			<button class="log-off" title="Log off" onclick="window.location.href='index.jsp'"></button>
 		</div>
 		<div id="list">
