@@ -22,7 +22,7 @@
 	                	<div id="login" class="animate form">
 	                		<h1>Error</h1>
 	                		<br/><br/><br/><br/>
-	                		<p style="color: red; text-align: center">Invaild username or wrong password !</p>
+	                		<p style="font: bold 18px/16px Arial, Helvetica, sans-serif; color: red; text-align: center">Invaild username or wrong password !</p>
 	                		<br/><br/><br/><br/>
 	                		<p class="login button">
 	                			<input type="submit" value="Login again" onclick="window.location.href='index.jsp#tologin'"/>

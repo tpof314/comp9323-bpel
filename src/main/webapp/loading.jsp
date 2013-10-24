@@ -1,6 +1,3 @@
-<%@ page import="controller.dataController.*"%>
-<%@ page import="model.*" %>
-<%@ page import="model.bean.*"%>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
