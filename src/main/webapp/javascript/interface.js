@@ -898,10 +898,6 @@ function remove_a_project(id) {
 	$("#remove_a_project_dialog").data("id", id);
 	$("#remove_a_project_dialog").dialog("open");
 }
-function download_a_project(id) {
-	project_reset_action();
-	//window.location.href = "http://apache.mirror.uber.com.au/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.zip";
-}
 function create_an_assignment() {
 	$.ajaxFileUpload({
 		url: "createAssignment?new_assignment_name=" + $("#new_assignment_name").val() + "&new_assignment_deadline=" + $("#new_assignment_deadline").val(),
