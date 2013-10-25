@@ -41,8 +41,11 @@ public class createAssignment extends HttpServlet {
 		UserBean userBean = null;
 		String assignment_name = null;
 		String date_str = null;
+		String spec = "";
 		Date deadline = null;
 		boolean flag = false;
+		
+		int newAssNo = userBean.getAssignments().size() + 1;
 		
 		String dateFormat = "dd/MM/yyyy HH:mm:ss";
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -52,6 +55,8 @@ public class createAssignment extends HttpServlet {
 		
 		assignment_name  = request.getParameter("new_assignment_name");
 		date_str  = request.getParameter("new_assignment_deadline");
+		spec = request.getParameter("new_assignment_specification");
+		
 		
 		try {
 			deadline  = sdf.parse(date_str + " 23:59:59");
@@ -60,6 +65,7 @@ public class createAssignment extends HttpServlet {
 	        rd.forward(request, response);
 		}
 		
+		/*
 		DiskFileItemFactory fileFactory = new DiskFileItemFactory();
 		File filesDir = (File) getServletContext().getAttribute("FILES_DIR_FILE");
 		fileFactory.setRepository (filesDir);
@@ -68,7 +74,7 @@ public class createAssignment extends HttpServlet {
 		String fileName = "";
 		InputStream fileContent = null;
 		
-		int newAssNo = userBean.getAssignments().size() + 1;
+		
 		
 		String specPath1 = "";
 		String specPath2 = "";
@@ -96,11 +102,12 @@ public class createAssignment extends HttpServlet {
 	        	RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 	    	    rd.forward(request, response);
 	        }
+		*/	
 		
 		newAssignment.setAssNo(newAssNo);
 		newAssignment.setAssName(assignment_name);
 		newAssignment.setDeadline(deadline);
-		newAssignment.setSpecification(specPath2);
+		newAssignment.setSpecification(spec);
 		
 		flag = userBean.assignmentController.createAssignment(userBean.getUser(), newAssignment);
 		if(flag)
