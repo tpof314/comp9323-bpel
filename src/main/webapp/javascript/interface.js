@@ -181,6 +181,10 @@ $(function() {
 						$("#list_area").load("loading.jsp #list_area");
 						upload_a_file();
 						$(this).dialog("close");
+						sleep(3000);
+						$("#list_area").load("online-BPEL-IDE.jsp #list_area");
+						$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
+						$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
 					}
 					else if (extension == "")
 						$("#upload_a_file_no_file_dialog").dialog("open");
@@ -453,6 +457,13 @@ $(function() {
 						$("#assignment_list_area_projects").load("loading.jsp #project_list_area_projects");
 						create_an_assignment();
 						$(this).dialog("close");
+						sleep(3000);
+						$("#assignment_list_area_project").load("home.jsp #assignment_list_area_projects", function() {
+							$("#assignment_list_area_projects").accordion({
+								heightStyle: "content"
+							});
+							$("#assignment_list_area_projects button").button();
+						});
 					}
 				}
 			},
@@ -879,9 +890,6 @@ function upload_a_file() {
 			$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
 		}
 	});
-	$("#list_area").load("online-BPEL-IDE.jsp #list_area");
-	$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
-	$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
 	return false;
 }
 function remove_a_project(id) {
@@ -908,12 +916,6 @@ function create_an_assignment() {
 				$("#assignment_list_area_projects button").button();
 			});
 		}
-	});
-	$("#assignment_list_area_project").load("home.jsp #assignment_list_area_projects", function() {
-		$("#assignment_list_area_projects").accordion({
-			heightStyle: "content"
-		});
-		$("#assignment_list_area_projects button").button();
 	});
 	return false;
 }
@@ -1075,4 +1077,12 @@ function ide_onload() {
 		$.get("saveProject");
 		alert("The project has been saved automatically");
 	};
+}
+function sleep(milliseconds) {
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++) {
+		if ((new Date().getTime() - start) > milliseconds) {
+			break;
+		}
+	}
 }
