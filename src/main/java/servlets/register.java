@@ -38,7 +38,7 @@ public class register extends HttpServlet {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
-		userBean.userController.setUser(username, password);
+		userBean.userController.createUser(username, password);
 		User user = userBean.userController.getUserByName(username, password);
 		
 		userBean.setUser(user);
