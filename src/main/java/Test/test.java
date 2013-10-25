@@ -110,7 +110,7 @@ public class test {
 		* */
 		
 		for (int i = 0; i < ass.size(); ++i) {
-			if (ass.get(i).getAssNo() == 4) {
+			if (ass.get(i).getAssNo() == 3) {
 				flag = userBean.assignmentController.removeAssignment(user, ass.get(i));
 				System.out.println("Remove assignment " + flag);
 			}

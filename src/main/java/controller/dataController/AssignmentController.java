@@ -57,11 +57,6 @@ public class AssignmentController {
 			return false;
 		else{
 			boolean flag = false;
-			
-			java.io.File specfd = new java.io.File(assignment.getSpecification());
-			flag = specfd.delete();
-			if(!flag)
-				return false;
 
 			for(int i = 0; i < assignment.getSubmitRecord().size(); ++i){
 				flag = google.removeFile(assignment.getSubmitRecord().get(i).getProjID());
