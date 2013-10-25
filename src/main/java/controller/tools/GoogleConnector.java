@@ -190,7 +190,7 @@ public class GoogleConnector {
         }
     }
 
-    private List<File> retrieveAllFiles() throws IOException {
+    public List<File> retrieveAllFiles() throws IOException {
         List<File> result = new ArrayList<File>();
         Files.List request = service.files().list();
 

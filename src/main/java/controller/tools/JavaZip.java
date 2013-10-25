@@ -1,13 +1,19 @@
 package controller.tools;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
@@ -129,39 +135,77 @@ public class JavaZip {
      *
      * Extract zipfile to outdir with complete directory structure.
      *
-     * @param zipfile Input .zip file
-     * @param outdir Output directory
+     * @param fileName Input .zip file
+     * @param filePath Output directory
      */
-    public boolean unZipFile(String sourceFile, String targetFile) {
-        File zipfile = new File(sourceFile);
-        File outdir = new File(targetFile);
-        try {
-            ZipInputStream zin = new ZipInputStream(new FileInputStream(zipfile));
-            ZipEntry entry;
-            String name, dir;
-            while ((entry = zin.getNextEntry()) != null) {
-                name = entry.getName();
-                if (entry.isDirectory()) {
-                    mkdirs(outdir, name);
-                    continue;
-                }
+//    public boolean unZipFile(String sourceFile, String targetFile) {
+//        File zipfile = new File(sourceFile);
+//        File outdir = new File(targetFile);
+//        try {
+//            ZipInputStream zin = new ZipInputStream(new FileInputStream(zipfile));
+//            ZipEntry entry;
+//            String name, dir;
+//            while ((entry = zin.getNextEntry()) != null) {
+//                name = entry.getName();
+//                if (entry.isDirectory()) {
+//                    mkdirs(outdir, name);
+//                    continue;
+//                }
+//
+//                dir = dirpart(name);
+//                if (dir != null) {
+//                    mkdirs(outdir, dir);
+//                }
+//
+//                extractFile(zin, outdir, name);
+//            }
+//            zin.close();
+//            
+//            return true;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+	public boolean unZipFile(String fileName, String filePath) {
+		try {
+			int BUFFER = 4096;
+			ZipFile zipFile = new ZipFile(fileName);
+			Enumeration emu = zipFile.entries();
 
-                dir = dirpart(name);
-                if (dir != null) {
-                    mkdirs(outdir, dir);
-                }
+			while(emu.hasMoreElements()){
+				ZipEntry entry = (ZipEntry)emu.nextElement();
+				if (entry.isDirectory())
+				{
+					new File(filePath + File.separator + entry.getName()).mkdirs();
+					continue;
+				}
+				BufferedInputStream bis = new BufferedInputStream(zipFile.getInputStream(entry));
+				File file = new File(filePath + entry.getName());
+				File parent = file.getParentFile();
+				if(parent != null && (!parent.exists())){
+					parent.mkdirs();
+				}
+				FileOutputStream fos = new FileOutputStream(file);
+				BufferedOutputStream bos = new BufferedOutputStream(fos, BUFFER);           
 
-                extractFile(zin, outdir, name);
-            }
-            zin.close();
-            
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
+				int count;
+				byte data[] = new byte[BUFFER];
+				while ((count = bis.read(data, 0, BUFFER)) != -1)
+				{
+					bos.write(data, 0, count);
+				}
+				bos.flush();
+				bos.close();
+				bis.close();
+			}
+			zipFile.close();
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
+	}
+	
     /* ====================== Helper Methods ====================== */
     /**
      * This method populates all the files in a directory to a List
