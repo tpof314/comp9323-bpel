@@ -26,7 +26,7 @@
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" >Your username</label>
-                                    <input id="username" name="username" required="required" type="text" placeholder="myusername"/>
+                                    <input id="username" name="username" required="required" type="text" placeholder="myusername" onkeyup="value=value.replace(/[\W]/g,'')"/>
                                 </p>
                                 <p> 
                                     <label for="password" class="youpasswd" data-icon="p">Your password</label>
@@ -50,7 +50,7 @@
                                 <h1>Sign up</h1> 
                                 <p> 
                                     <label for="username-register" class="uname" data-icon="u">Your username</label>
-                                    <input id="username-register" name="username" required="required" type="text" placeholder="mysuperusername"/>
+                                    <input id="username-register" name="username" required="required" type="text" placeholder="mysuperusername" onkeyup="value=value.replace(/[\W]/g,'')"/>
                                 </p>
                                 <p> 
                                     <label for="email-register" class="youmail" data-icon="e" >Your email</label>

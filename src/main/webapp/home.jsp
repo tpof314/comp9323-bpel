@@ -173,7 +173,7 @@
 					<tr>
 						<td>Project Name&nbsp;:</td>
 						<td>
-							<input id="new_project_name" style="width: 370px" class="text ui-widget-content ui-corner-all" type="text" name="new_project_name" value="" onkeydown="return create_a_new_file_dialog_on_key_down(event.keyCode);"/>
+							<input id="new_project_name" style="width: 370px" class="text ui-widget-content ui-corner-all" type="text" name="new_project_name" value="" onkeyup="value=value.replace(/[\W]/g,'')" onkeydown="return create_a_new_file_dialog_on_key_down(event.keyCode);"/>
 						</td>
 					</tr>
 				</table>
@@ -194,7 +194,7 @@
 					<tr>
 						<td>Assignment Name&nbsp;:</td>
 						<td>
-							<input id="new_assignment_name" type="text" style="width: 335px" class="text ui-widget-content ui-corner-all" name="new_assignment_name" onkeydown="return create_a_new_file_dialog_on_key_down(event.keyCode);"/>
+							<input id="new_assignment_name" type="text" style="width: 335px" class="text ui-widget-content ui-corner-all" name="new_assignment_name" onkeyup="value=value.replace(/[\W]/g,'')" onkeydown="return create_a_new_file_dialog_on_key_down(event.keyCode);"/>
 						</td>
 					</tr>
 					<tr>
@@ -206,7 +206,7 @@
 					<tr>
 						<td>Specification&nbsp;:</td>
 						<td>
-							<input id="new_assignment_specification" type="text" title="Please enter a specification url address http://www.bpel.com.au/example.pdf" style="width: 335px" name="new_assignment_specification"/>
+							<input id="new_assignment_specification" type="text" title="Please enter a specification url address http://www.bpel.com.au/example.pdf" style="width: 335px" name="new_assignment_specification" onkeyup="value=value.replace(' ','')"/>
 						</td>
 					</tr>
 				</table>

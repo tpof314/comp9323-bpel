@@ -232,7 +232,7 @@
 						<td>File Name&nbsp;:
 						</td>
 						<td>
-							<input class="text ui-widget-content ui-corner-all" type="text" name="new_file_name" id="new_file_name" value="" onkeydown="return create_a_new_file_dialog_on_key_down(event.keyCode);"/>
+							<input class="text ui-widget-content ui-corner-all" type="text" name="new_file_name" id="new_file_name" value="" onkeyup="value=value.replace(/[\W]/g,'')" onkeydown="return create_a_new_file_dialog_on_key_down(event.keyCode);"/>
 						</td>
 					</tr>
 					<tr>
