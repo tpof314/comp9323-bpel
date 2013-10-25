@@ -38,9 +38,10 @@ $(function() {
 					create_a_new_file();
 					$(this).dialog("close");
 					$("#list_area").load("loading.jsp #list_area");
-					$("#list_area").load("createFile?file_name=" + $(this).data("file_name") + " #list_area");
-					$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
-					$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
+					$("#list_area").load("createFile?file_name=" + $(this).data("file_name") + " #list_area", function() {
+						$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
+						$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
+					});
 				}
 			},
 			Cancel : function() {
@@ -112,9 +113,10 @@ $(function() {
 				remove_a_file($(this).data("quantity"));
 				$(this).dialog("close");
 				$("#list_area").load("loading.jsp #list_area");
-				$("#list_area").load("removeFile?is_in_project=" + $(this).data("is_in_project") + "&directory_number=" + $(this).data("directory_number") + "&file_number=" + $(this).data("file_number") + " #list_area");
-				$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
-				$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
+				$("#list_area").load("removeFile?is_in_project=" + $(this).data("is_in_project") + "&directory_number=" + $(this).data("directory_number") + "&file_number=" + $(this).data("file_number") + " #list_area", function() {
+					$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
+					$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
+				});
 			},
 			Cancel : function() {
 				$(this).dialog("close");
@@ -898,7 +900,7 @@ function create_an_assignment() {
 		secureuri: false,
 		fileElementId: "new_assignment_specification",
 		dataType: "json",
-		ajaxSuccess: function (data) {
+		success: function (data) {
 			$("#assignment_list_area_project").load("home.jsp #assignment_list_area_projects", function() {
 				$("#assignment_list_area_projects").accordion({
 					heightStyle: "content"
