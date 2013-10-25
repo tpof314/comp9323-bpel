@@ -40,12 +40,20 @@ public class register extends HttpServlet {
 		}
 		userBean.userController.createUser(username, password);
 		User user = userBean.userController.getUserByName(username, password);
-		
-		userBean.setUser(user);
-        userBean.setAssignments(userBean.assignmentController.getUserAssignments(user));
-		request.getSession().setAttribute("userBean", userBean);
-		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-        rd.forward(request, response);
+		if (user == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+	        rd.forward(request, response);
+		}
+		else {
+			java.io.File userDirFd = new java.io.File(user.getUserDir());
+			userDirFd.mkdir();
+			
+			userBean.setUser(user);
+	        userBean.setAssignments(userBean.assignmentController.getUserAssignments(user));
+			request.getSession().setAttribute("userBean", userBean);
+			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+	        rd.forward(request, response);
+		}
 
 	}
 

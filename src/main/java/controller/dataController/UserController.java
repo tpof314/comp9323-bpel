@@ -120,6 +120,8 @@ public class UserController {
 		String userID = google.createFolder(username);
 		User user = new User(userID, username, "student", null);
 		mongo.insertUser(user, password);
+		
+		
 		return true;
 	}
 }
