@@ -455,10 +455,8 @@ $(function() {
 						$("#create_a_new_assignment_no_specification_dialog").dialog("open");
 					else {
 						$("#assignment_list_area_projects").load("loading.jsp #project_list_area_projects");
-						create_an_assignment();
 						$(this).dialog("close");
-						sleep(3000);
-						$("#assignment_list_area_project").load("home.jsp #assignment_list_area_projects", function() {
+						$("#assignment_list_area_project").load("createAssignment?new_assignment_name=" + $("#new_assignment_name").val() + "&new_assignment_deadline=" + $("#new_assignment_deadline").val() + "&new_assignment_specification=" + $("#new_assignment_specification").val() + " #assignment_list_area_projects", function() {
 							$("#assignment_list_area_projects").accordion({
 								heightStyle: "content"
 							});
