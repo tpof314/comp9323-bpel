@@ -12,6 +12,7 @@ import controller.tools.JavaZip;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 import model.Project;
 import model.User;
 
@@ -111,4 +112,14 @@ public class UserController {
         
         return true;
     }
+	
+	public boolean createUser(String username, String password) {
+		if (mongo.userExist(username)) {
+			return false;
+		}
+		String userID = google.createFolder(username);
+		User user = new User(userID, username, "student", null);
+		mongo.insertUser(user, password);
+		return true;
+	}
 }

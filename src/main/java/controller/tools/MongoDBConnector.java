@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.bson.types.ObjectId;
 
 import model.Assignment;
 import model.Project;
