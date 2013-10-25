@@ -448,7 +448,8 @@ $(function() {
 					else if ($("#new_assignment_specification").val() == "")
 						$("#create_a_new_assignment_no_specification_dialog").dialog("open");
 					else {
-						//
+						$("#assignment_list_area_projects").load("loading.jsp #project_list_area_projects");
+						create_an_assignment();
 						$(this).dialog("close");
 					}
 				}
@@ -890,6 +891,29 @@ function remove_a_project(id) {
 function download_a_project(id) {
 	project_reset_action();
 	//window.location.href = "http://apache.mirror.uber.com.au/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.zip";
+}
+function create_an_assignment() {
+	$.ajaxFileUpload({
+		url: "createAssignment?new_assignment_name=" + $("#new_assignment_name").val() + "&new_assignment_deadline=" + $("#new_assignment_deadline").val(),
+		secureuri: false,
+		fileElementId: "new_assignment_specification",
+		dataType: "json",
+		success: function (data) {
+			$("#assignment_list_area_project").load("home.jsp #assignment_list_area_projects", function() {
+				$("#assignment_list_area_projects").accordion({
+					heightStyle: "content"
+				});
+				$("#assignment_list_area_projects button").button();
+			});
+		}
+	});
+	$("#assignment_list_area_project").load("home.jsp #assignment_list_area_projects", function() {
+		$("#assignment_list_area_projects").accordion({
+			heightStyle: "content"
+		});
+		$("#assignment_list_area_projects button").button();
+	});
+	return false;
 }
 function remove_an_assignment(assignment_id) {
 	$("#remove_an_assignment_dialog").text("Do you really want to remove \"" + $("#aid-" + assignment_id + " span.name").text() + "\" ?");
