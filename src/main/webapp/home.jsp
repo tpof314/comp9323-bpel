@@ -8,6 +8,7 @@
   		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   		<script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
   		<script src="javascript/interface.js"></script>
+  		<script src="javascript/ajaxfileupload.js"></script>
   		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   		<link rel="stylesheet" href="css/style.css" type="text/css" />
   		<title>Home</title>
