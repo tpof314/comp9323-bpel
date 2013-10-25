@@ -470,7 +470,6 @@ $(function() {
 			}
 		},
 		close: function() {
-			assignment_reset();
 			$("#assignment_list_area div.align_right button.new").tooltip().tooltip("close");
 		}
 	});

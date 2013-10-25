@@ -206,7 +206,7 @@
 					<tr>
 						<td>Specification&nbsp;:</td>
 						<td>
-							<input id="new_assignment_specification" title="Please enter a specification url address http://www.bpel.com.au/example.pdf" type="text" style="width: 335px" name="new_assignment_specification"/>
+							<input id="new_assignment_specification" type="text" title="Please enter a specification url address http://www.bpel.com.au/example.pdf" style="width: 335px" name="new_assignment_specification"/>
 						</td>
 					</tr>
 				</table>
