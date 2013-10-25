@@ -49,8 +49,8 @@ public class createAssignment extends HttpServlet {
 		Assignment newAssignment = new Assignment();
 		userBean  = (UserBean) request.getSession().getAttribute("userBean");
 		
-		assignment_name  = request.getParameter("assignment_name");
-		date_str  = request.getParameter("deadline");
+		assignment_name  = request.getParameter("new_assignment_name");
+		date_str  = request.getParameter("new_assignment_deadline");
 		try {
 			deadline  = sdf.parse(date_str + " 23:59:59");
 		} catch (ParseException ex) {
