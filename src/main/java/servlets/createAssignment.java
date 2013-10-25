@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +25,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import model.Assignment;
 import model.bean.UserBean;
+import sun.misc.IOUtils;
 
 /**
  * Servlet implementation class createAssignment
@@ -47,7 +51,12 @@ public class createAssignment extends HttpServlet {
 		
 		assignment_name  = request.getParameter("assignment_name");
 		date_str  = request.getParameter("deadline");
-		deadline  = sdf.parse(date_str + " 23:59:59");
+		try {
+			deadline  = sdf.parse(date_str + " 23:59:59");
+		} catch (ParseException ex) {
+			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+	        rd.forward(request, response);
+		}
 		
 		DiskFileItemFactory fileFactory = new DiskFileItemFactory();
 		File filesDir = (File) getServletContext().getAttribute("FILES_DIR_FILE");
@@ -59,6 +68,9 @@ public class createAssignment extends HttpServlet {
 		
 		int newAssNo = userBean.getAssignments().size() + 1;
 		
+		String specPath1 = "";
+		String specPath2 = "";
+		
 		try {
 	        	List<FileItem> multiparts = uploader.parseRequest(request);
 	        	Iterator<FileItem> fileItemsIterator = multiparts.iterator();
@@ -68,12 +80,13 @@ public class createAssignment extends HttpServlet {
 	        		fileName = fileItem.getName();
 					
 					String splittedFileName[] = fileName.split(".");
-					String specPath1 = "src" + File.separator + "main" + File.separator + "webapp" + File.separator;
-					String specPath2 = "assignments" + File.separator + "assignment" + newAssNo + "." + splittedFileName[splittedFileName.length-1];
 					
-	        		fileContent = item.getInputStream();
+					specPath1 = "src" + File.separator + "main" + File.separator + "webapp" + File.separator;
+					specPath2 = "assignments" + File.separator + "assignment" + newAssNo + "." + splittedFileName[splittedFileName.length-1];
 					
-					File spec = new File(specPath);
+	        		fileContent = fileItem.getInputStream();
+					
+					File spec = new File(specPath1 + specPath2);
 					FileOutputStream fws = new FileOutputStream(spec);
 					fws.write(IOUtils.readFully(fileContent, -1, false));
 					
@@ -88,7 +101,10 @@ public class createAssignment extends HttpServlet {
 		newAssignment.setAssNo(newAssNo);
 		newAssignment.setAssName(assignment_name);
 		newAssignment.setDeadline(deadline);
-		newAssignment.setSpecification("localhost:8080/" + specPath2);
+		newAssignment.setSpecification("localhost:8080/comp9323-bpel/" + specPath2);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+	    rd.forward(request, response);
 	}
 
 }
