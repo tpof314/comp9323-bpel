@@ -42,15 +42,17 @@ public class createAssignment extends HttpServlet {
 		String assignment_name = null;
 		String date_str = null;
 		Date deadline = null;
+		boolean flag = false;
 		
 		String dateFormat = "dd/MM/yyyy HH:mm:ss";
-		SimpleDateFormat sdf = new SimpleDateFormat("dateFormat");
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 		
 		Assignment newAssignment = new Assignment();
 		userBean  = (UserBean) request.getSession().getAttribute("userBean");
 		
 		assignment_name  = request.getParameter("new_assignment_name");
 		date_str  = request.getParameter("new_assignment_deadline");
+		
 		try {
 			deadline  = sdf.parse(date_str + " 23:59:59");
 		} catch (ParseException ex) {
@@ -79,29 +81,30 @@ public class createAssignment extends HttpServlet {
 	        		FileItem fileItem = fileItemsIterator.next();
 	        		fileName = fileItem.getName();
 					
-					String splittedFileName[] = fileName.split(".");
-					
-					specPath1 = "src" + File.separator + "main" + File.separator + "webapp" + File.separator;
-					specPath2 = "assignments" + File.separator + "assignment" + newAssNo + "." + splittedFileName[splittedFileName.length-1];
+					//specPath1 = "src" + File.separator + "main" + File.separator + "webapp" + File.separator;
+					specPath2 = "assignments" + File.separator + "assignment" + newAssNo + fileName.substring(fileName.lastIndexOf("."));
 					
 	        		fileContent = fileItem.getInputStream();
 					
-					File spec = new File(specPath1 + specPath2);
+					File spec = new File(specPath2);
 					FileOutputStream fws = new FileOutputStream(spec);
 					fws.write(IOUtils.readFully(fileContent, -1, false));
 					
 	        	}
 
 	        } catch (Exception ex) {
-	        	
-	        	RequestDispatcher rd = request.getRequestDispatcher("online-BPEL-IDE.jsp");
+	        	RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 	    	    rd.forward(request, response);
 	        }
 		
 		newAssignment.setAssNo(newAssNo);
 		newAssignment.setAssName(assignment_name);
 		newAssignment.setDeadline(deadline);
-		newAssignment.setSpecification("localhost:8080/comp9323-bpel/" + specPath2);
+		newAssignment.setSpecification(specPath2);
+		
+		flag = userBean.assignmentController.createAssignment(userBean.getUser(), newAssignment);
+		if(flag)
+			userBean.getAssignments().add(newAssignment);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 	    rd.forward(request, response);

@@ -197,5 +197,5 @@ jQuery.extend({
 
         return data;
     }
-})
+});
 

@@ -8,6 +8,14 @@
 		<servlet-name>compileProject</servlet-name>
 		<url-pattern>/compileProject</url-pattern>
 	</servlet-mapping>
+    <servlet>
+		<servlet-name>createAssignment</servlet-name>
+		<servlet-class>servlets.createAssignment</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>createAssignment</servlet-name>
+		<url-pattern>/createAssignment</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>createFile</servlet-name>
 		<servlet-class>servlets.createFile</servlet-class>

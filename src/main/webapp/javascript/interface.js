@@ -898,7 +898,7 @@ function create_an_assignment() {
 		secureuri: false,
 		fileElementId: "new_assignment_specification",
 		dataType: "json",
-		success: function (data) {
+		ajaxSuccess: function (data) {
 			$("#assignment_list_area_project").load("home.jsp #assignment_list_area_projects", function() {
 				$("#assignment_list_area_projects").accordion({
 					heightStyle: "content"
