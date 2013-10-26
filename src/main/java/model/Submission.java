@@ -8,24 +8,35 @@ import java.util.Date;
  * @author Haojie Huang
  */
 public class Submission {
+	private String submitName;
     private String stuName;
     private String projID;
     private Date submitTime;
     private double mark;
 
     public Submission() {
+		this.submitName = "";
 		this.stuName = "";
 		this.projID = "";
 		this.submitTime = null;
     	this.mark = -1;
     }
     
-    public Submission(String stuName, String projID, Date submitTime, double mark) {
-        this.stuName = stuName;
+    public Submission(String submitName, String stuName, String projID, Date submitTime, double mark) {
+        this.submitName = submitName;
+		this.stuName = stuName;
         this.projID = projID;
         this.submitTime = submitTime;
         this.mark = mark;
     }
+
+	public String getSubmitName() {
+		return submitName;
+	}
+
+	public void setSubmitName(String submitName) {
+		this.submitName = submitName;
+	}
     
     public double getMark() {
         return mark;

@@ -84,7 +84,7 @@ public class AssignmentController {
 			return false;
 		
 		boolean flag = false;
-		String zipPath = user.getUserDir() + "assignment" + assignment.getAssNo() + ".zip";
+		String zipPath = user.getUserDir() + project.getProjName() + ".zip";
 		
 		google.downloadFile(project.getProjId(), zipPath);
 
@@ -105,6 +105,7 @@ public class AssignmentController {
 				return false;
 		}
 		
+		submission.setSubmitName(project.getProjName());
         submission.setProjID(projId);
         submission.setSubmitTime(new Date());
 		

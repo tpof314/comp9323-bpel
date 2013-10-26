@@ -45,6 +45,7 @@ public class MongoDBConnector {
 	private static final String ASSIGNMENT_SUBMISSIONS = "submissions";
 	private static final String STUDENT_NAME = "student_name";
 	private static final String SUBMIT_TIME = "submit_time";
+	private static final String SUBMIT_NAME = "submit_name";
 	private static final String MARK = "mark";
 	
     public MongoDBConnector() {
@@ -446,6 +447,7 @@ public class MongoDBConnector {
 		}
 		else {
 			BasicDBObject dbSubmission = new BasicDBObject();
+			dbSubmission.put(SUBMIT_NAME, submission.getSubmitName());
 			dbSubmission.put(STUDENT_NAME, submission.getStuName());
 			dbSubmission.put(PROJECT_ID, submission.getProjID());
 			dbSubmission.put(SUBMIT_TIME, submission.getSubmitTime());
@@ -567,6 +569,7 @@ public class MongoDBConnector {
 		ArrayList<Submission> records = new ArrayList<Submission>();
         for (int i = 0; i < list.size(); i++) {
             BasicDBObject submissionDBObj = (BasicDBObject) list.get(i);
+			String submitName = (String) submissionDBObj.get(SUBMIT_NAME);
             String stuName = (String) submissionDBObj.get(STUDENT_NAME);
             String projID = (String) submissionDBObj.get(PROJECT_ID);
 			Date submitTime = (Date) submissionDBObj.get(SUBMIT_TIME);
@@ -578,7 +581,7 @@ public class MongoDBConnector {
 				mark = (Integer) submissionDBObj.get(MARK);
 			}
 			
-            Submission submission = new Submission(stuName, projID, submitTime, mark);
+            Submission submission = new Submission(submitName, stuName, projID, submitTime, mark);
             records.add(submission);
         }
 		return records;
@@ -601,6 +604,7 @@ public class MongoDBConnector {
 		ArrayList<Submission> records = new ArrayList<Submission>();
         for (int i = 0; i < list.size(); i++) {
             BasicDBObject submissionDBObj = (BasicDBObject) list.get(i);
+			String submitName = (String) submissionDBObj.get(SUBMIT_NAME);
             String student = (String) submissionDBObj.get(STUDENT_NAME);
 			if (student.equals(stuName)) {
 				String projID = (String) submissionDBObj.get(PROJECT_ID);
@@ -613,7 +617,7 @@ public class MongoDBConnector {
 					mark = (Integer) submissionDBObj.get(MARK);
 				}
 				
-				Submission submission = new Submission(stuName, projID, submitTime, mark);
+				Submission submission = new Submission(submitName, stuName, projID, submitTime, mark);
 				records.add(submission);
 				return records;
 			}
