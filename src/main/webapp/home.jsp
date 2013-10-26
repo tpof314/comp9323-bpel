@@ -77,7 +77,6 @@
 							<% if (userBean.getUser().getUserType().equals("teacher")) { %>
 							<div style="float: left">
 								<img src="images/assignment-icon.png">&nbsp;
-								<span class="name">Assignment <%= userBean.getAssignments().get(i).getAssNo() %>: </span>
 								<span class="name"><%= userBean.getAssignments().get(i).getAssName() %></span>
 							</div>
 							<div class="align_right">
@@ -86,7 +85,6 @@
 							<% } else { %>
 							<div>
 								<img src="images/assignment-icon.png">&nbsp;
-								<span class="name">Assignment <%= userBean.getAssignments().get(i).getAssNo() %>: </span>
 								<span class="name"><%= userBean.getAssignments().get(i).getAssName() %></span>
 							</div>
 							<% } %>

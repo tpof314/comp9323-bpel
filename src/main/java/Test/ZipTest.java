@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class ZipTest {
 	public static void main(String args[]) throws GeneralSecurityException, IOException, URISyntaxException {
-		//Drive drive = GoogleDriveBuilder.createDriveService();
-		//GoogleConnector google = new GoogleConnector(drive);
-		/*
+		Drive drive = GoogleDriveBuilder.createDriveService();
+		GoogleConnector google = new GoogleConnector(drive);
+		
 		List<File> files = google.retrieveAllFiles();
 		for (File f : files) {
 			System.out.println("======================");
@@ -32,9 +32,9 @@ public class ZipTest {
 			System.out.println("File Size: " + f.getFileSize());
 			System.out.println("File Title: " + f.getTitle());
 		}
-		*/
+		
 		//google.downloadFile("0B942fHMEpI9sRFdLOXgtTHp2cU0", "lisa.zip");
-		JavaZip jzip = new JavaZip();
-		jzip.unZipFile("peter.zip", "duancy");
+//		JavaZip jzip = new JavaZip();
+//		jzip.unZipFile("peter.zip", "duancy");
 	}
 }
