@@ -18,14 +18,14 @@
 			UserBean userBean = (UserBean)session.getAttribute("userBean");
 			String project_id = request.getParameter("project_id");
 			String submission_id = request.getParameter("submission_id");
-			String assignment_no = request.getParameter("assignment_no");
+			String project_name = request.getParameter("project_name");
 	        
 			if (project_id != null) {
 		        Project project = userBean.projectController.loadProject(userBean.getUser(), userBean.getUser().getUserProjects().get(Integer.valueOf(project_id)).getProjName(), userBean.getUser().getUserProjects().get(Integer.valueOf(project_id)).getProjId());
 	        	userBean.setCurrProj(project);
 			}
 			else if (submission_id != null) {
-				Project project = userBean.projectController.loadProject(userBean.getUser(), "assignment" + assignment_no, submission_id);
+				Project project = userBean.projectController.loadProject(userBean.getUser(), project_name, submission_id);
 				userBean.setCurrProj(project);
 			}
         	

@@ -131,7 +131,7 @@
 									<% for (int j = 0; j < userBean.getAssignments().get(i).getSubmitRecord().size(); ++j) { %>
 									<tr>
 										<td>&nbsp;<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getStuName() %></td>
-										<td>&nbsp;<a href="online-BPEL-IDE.jsp?submission_id=<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getProjID() %>&assignment_no=<%= userBean.getAssignments().get(i).getAssNo() %>" target="_blank">Details</a></td>
+										<td>&nbsp;<a href="online-BPEL-IDE.jsp?submission_id=<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getProjID() %>&project_name=<%= userBean.getAssignments().get(i).getSubmitRecord().get(j).getSubmitName() %>" target="_blank">Details</a></td>
 										<td>
 										<% if (userBean.getAssignments().get(i).getSubmitRecord().get(j).getMark() < 0) { %>
 											<input id="mark-<%= i %>-<%= j %>" class="mark" style="width: 67px" type="text" value="-" onFocus="if(value=defaultValue){value='';this.style.color='#000'}" onBlur="if(!value){value=defaultValue;this.style.color='#000'}" onKeyUp="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onKeyDown="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
