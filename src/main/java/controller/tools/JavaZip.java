@@ -181,7 +181,7 @@ public class JavaZip {
 					continue;
 				}
 				BufferedInputStream bis = new BufferedInputStream(zipFile.getInputStream(entry));
-				File file = new File(filePath + entry.getName());
+				File file = new File(filePath + File.separator + entry.getName());
 				File parent = file.getParentFile();
 				if(parent != null && (!parent.exists())){
 					parent.mkdirs();
