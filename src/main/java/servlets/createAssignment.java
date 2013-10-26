@@ -23,7 +23,7 @@ public class createAssignment extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		UserBean userBean = null;
 		String assignment_name = null;
