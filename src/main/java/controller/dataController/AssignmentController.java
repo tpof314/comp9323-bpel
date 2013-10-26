@@ -58,11 +58,14 @@ public class AssignmentController {
 		else{
 			boolean flag = false;
 
+			/*
 			for(int i = 0; i < assignment.getSubmitRecord().size(); ++i){
 				flag = google.removeFile(assignment.getSubmitRecord().get(i).getProjID());
 				if(!flag)
 					return false;
 			}
+			*/
+			
 			flag = mongo.removeAssByTeacher(user.getUserName(), assignment.getAssID());
 			if(!flag)
 				return false;
@@ -83,7 +86,10 @@ public class AssignmentController {
 		if(!user.getUserType().equals("student"))
 			return false;
 		
+		
+		/*
 		boolean flag = false;
+		
 		String zipPath = user.getUserDir() + project.getProjName() + ".zip";
 		
 		google.downloadFile(project.getProjId(), zipPath);
@@ -91,6 +97,7 @@ public class AssignmentController {
         String projId = google.uploadFile(assignment.getAssName(), user.getUserId(), zipPath);
         java.io.File zipfd = new java.io.File(zipPath);
         zipfd.delete();
+		
         if(projId == null){
         	System.out.println("upload to google fail.");
             return false;
@@ -105,8 +112,9 @@ public class AssignmentController {
 				return false;
 		}
 		
+		* */
 		submission.setSubmitName(project.getProjName());
-        submission.setProjID(projId);
+        submission.setProjID(project.getProjId());
         submission.setSubmitTime(new Date());
 		
 		mongo.addSubmissionByStudent(assignment.getAssID(), submission);
