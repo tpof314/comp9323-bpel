@@ -440,6 +440,7 @@ public class MongoDBConnector {
 		
 		if (cursor.hasNext()) {
 			BasicDBObject updateObj = new BasicDBObject();
+			updateObj.append(ASSIGNMENT_SUBMISSIONS + ".$." + SUBMIT_NAME, submission.getSubmitName());
 			updateObj.append(ASSIGNMENT_SUBMISSIONS + ".$." + PROJECT_ID, submission.getProjID());
 			updateObj.append(ASSIGNMENT_SUBMISSIONS + ".$." + SUBMIT_TIME, submission.getSubmitTime());
 			BasicDBObject update = new BasicDBObject("$set", updateObj);
