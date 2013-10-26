@@ -12,6 +12,7 @@ $(function() {
 	$("#assignment_list_area_projects button").button();
 	$("#new_assignment_deadline").datepicker();
 	$("#list").tabs();
+	$("#list button.refresh").button();
 	$("#console_tabs").tabs();
 	var	tabs = $("#editor_tabs").tabs();
 	var create_a_new_file_dialog = $("#create_a_new_file_dialog").dialog({
@@ -37,7 +38,7 @@ $(function() {
 					is_project_modified = true;
 					create_a_new_file();
 					$(this).dialog("close");
-					$("#list_area").load("loading.jsp #list_area");
+					//$("#list_area").load("loading.jsp #list_area");
 					$("#list_area").load("createFile?file_name=" + $(this).data("file_name") + " #list_area", function() {
 						$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
 						$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
@@ -112,7 +113,7 @@ $(function() {
 				});
 				remove_a_file($(this).data("quantity"));
 				$(this).dialog("close");
-				$("#list_area").load("loading.jsp #list_area");
+				//$("#list_area").load("loading.jsp #list_area");
 				$("#list_area").load("removeFile?is_in_project=" + $(this).data("is_in_project") + "&directory_number=" + $(this).data("directory_number") + "&file_number=" + $(this).data("file_number") + " #list_area", function() {
 					$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
 					$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
@@ -178,10 +179,10 @@ $(function() {
 				else {
 					extension = extension.substring(extension.lastIndexOf(".") + 1);
 					if (extension == "bpel" || extension == "soap" || extension == "txt" || extension == "wsdl" || extension == "xml") {
-						$("#list_area").load("loading.jsp #list_area");
+						//$("#list_area").load("loading.jsp #list_area");
 						upload_a_file();
 						$(this).dialog("close");
-						sleep(3000);
+						//sleep(3000);
 						$("#list_area").load("online-BPEL-IDE.jsp #list_area");
 						$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
 						$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
@@ -845,7 +846,7 @@ function remove_a_file(quantity) {
 	$("#toolbar button.remove").prop('disabled', true).button("refresh");
 }
 function save_a_file(li_id) {
-	$("#list_area").load("loading.jsp #list_area");
+	//$("#list_area").load("loading.jsp #list_area");
 	is_project_modified = true;
 	var quantity = $("#list_area div.hide-information span.quantity").text();
 	for (var i = 0; i < quantity; ++i) {
@@ -1078,4 +1079,9 @@ function sleep(milliseconds) {
 			break;
 		}
 	}
+}
+function refresh_list() {
+	$("#list_area").load("online-BPEL-IDE.jsp #list_area");
+	$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
+	$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
 }

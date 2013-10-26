@@ -16,47 +16,49 @@
 	<body onload="ide_onload()" onunload="toolbar_reset_button()">
 		<%
 			UserBean userBean = (UserBean)session.getAttribute("userBean");
-			String project_id = request.getParameter("project_id");
-			String submission_id = request.getParameter("submission_id");
-			String project_name = request.getParameter("project_name");
-	        
-			if (project_id != null) {
-		        Project project = userBean.projectController.loadProject(userBean.getUser(), userBean.getUser().getUserProjects().get(Integer.valueOf(project_id)).getProjName(), userBean.getUser().getUserProjects().get(Integer.valueOf(project_id)).getProjId());
-	        	userBean.setCurrProj(project);
-			}
-			else if (submission_id != null) {
-				Project project = userBean.projectController.loadProject(userBean.getUser(), project_name, submission_id);
-				userBean.setCurrProj(project);
-			}
-        	
-        	int number = 0;
-        	int pid = 0;
-        	int quantity = 1;
-        	int number_of_folders = 1;
-        	int number_of_files = 0;
-        	for(int i = 0; i < userBean.getCurrProj().getDirs().size(); ++i) {
-        		quantity++;
-        		number_of_folders++;
-        		for(int j = 0; j < userBean.getCurrProj().getDirs().get(i).getFiles().size(); ++j) {
-        			quantity++;
-        			number_of_files++;
-        		}
-        	}
-        	for(int i = 0; i < userBean.getCurrProj().getFiles().size(); ++i) {
-        		quantity++;
-        		number_of_files++;
-        	}
-        	
-        	java.util.Locale locale = request.getLocale();
-        	java.text.DateFormat dateFormat = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.LONG, java.text.DateFormat.LONG, locale);
-        	
-        	String time = "Compile the project on " + dateFormat.format(new java.util.Date()) + "<br/>";
-        	String log = userBean.getCurrProj().getCompileResult();
-        	String result = userBean.getCurrProj().getExecuteResult();
-        	
-        	if (!userBean.getCurrProj().getCompileResult().equals(""))
-        		log = time + userBean.getCurrProj().getCompileResult();
-        	
+			if (userBean == null)
+				response.sendRedirect("index.jsp");
+			else {
+				String project_id = request.getParameter("project_id");
+				String submission_id = request.getParameter("submission_id");
+				String project_name = request.getParameter("project_name");
+		        
+				if (project_id != null) {
+			        Project project = userBean.projectController.loadProject(userBean.getUser(), userBean.getUser().getUserProjects().get(Integer.valueOf(project_id)).getProjName(), userBean.getUser().getUserProjects().get(Integer.valueOf(project_id)).getProjId());
+		        	userBean.setCurrProj(project);
+				}
+				else if (submission_id != null) {
+					Project project = userBean.projectController.loadProject(userBean.getUser(), project_name, submission_id);
+					userBean.setCurrProj(project);
+				}
+	        	
+	        	int number = 0;
+	        	int pid = 0;
+	        	int quantity = 1;
+	        	int number_of_folders = 1;
+	        	int number_of_files = 0;
+	        	for(int i = 0; i < userBean.getCurrProj().getDirs().size(); ++i) {
+	        		quantity++;
+	        		number_of_folders++;
+	        		for(int j = 0; j < userBean.getCurrProj().getDirs().get(i).getFiles().size(); ++j) {
+	        			quantity++;
+	        			number_of_files++;
+	        		}
+	        	}
+	        	for(int i = 0; i < userBean.getCurrProj().getFiles().size(); ++i) {
+	        		quantity++;
+	        		number_of_files++;
+	        	}
+	        	
+	        	java.util.Locale locale = request.getLocale();
+	        	java.text.DateFormat dateFormat = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.LONG, java.text.DateFormat.LONG, locale);
+	        	
+	        	String time = "Compile the project on " + dateFormat.format(new java.util.Date()) + "<br/>";
+	        	String log = userBean.getCurrProj().getCompileResult();
+	        	String result = userBean.getCurrProj().getExecuteResult();
+	        	
+	        	if (!userBean.getCurrProj().getCompileResult().equals(""))
+	        		log = time + userBean.getCurrProj().getCompileResult();
         %>
 		<div id="header_information">
 			<button class="unsw" title="University of New South Wales" onclick="window.location.href='http://www.unsw.edu.au'"></button>
@@ -73,7 +75,7 @@
 		</div>
 		<div id="list">
 			<ul>
-				<li><a href="#list_area">Project Explorer</a></li>
+				<li><a href="#list_area">Project Explorer&nbsp;<span><button class="refresh" title="Refresh" style="background: url('images/refresh-icon.png') center no-repeat; height: 20px; width: 20px; border: none" onclick="refresh_list()"></button></span></a></li>
 			</ul>
 			<div id="list_area">
 				<p id="list-p-<%= pid++ %>" onclick="list_folder_select(this.id, <%= quantity %>)" ondblclick="list_hide('list-fold-<%= number %>', '', 'list-hide-<%= number %>')">
@@ -317,5 +319,6 @@
 			<input id="save_a_file-file_number" name="file_number" value="">
 			<input id="save_a_file-content" name="content" value="">
 		</form>
+		<% } %>
 	</body>
 </html>

@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
     </head>
     <body>
+    	<% session.invalidate(); %>
         <div class="container">
             <header>
                 <h1><img src="images/unsw-logo.png" height="30px" align="middle">&nbsp; University of New South Wales <span>E-Enterprise Project</span></h1>

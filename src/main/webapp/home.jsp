@@ -16,6 +16,9 @@
 	<body onunload="project_reset_action()">
 		<%
 	        UserBean userBean = (UserBean) session.getAttribute("userBean");
+			if (userBean == null)
+				response.sendRedirect("index.jsp");
+			else {
 		%>
 		<div id="header_information">
 			<button class="unsw" title="University of New South Wales" onclick="window.location.href='http://www.unsw.edu.au'"></button>
@@ -237,5 +240,6 @@
 		<div id="submit_a_project_no_project_dialog">
 			Please select a project to submit !
 		</div>
+		<% } %>
 	</body>
 </html>
