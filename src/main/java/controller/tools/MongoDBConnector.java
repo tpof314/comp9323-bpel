@@ -376,12 +376,12 @@ public class MongoDBConnector {
 	 * @return true if add assignment successfully, false otherwise.
 	 * (NOTE: The database doesn't allow replicated assignment numbers.)
      */
-    public boolean addAssToDatabaseByTeacher(String username, Assignment assignment) {
+    public String addAssToDatabaseByTeacher(String username, Assignment assignment) {
         try {
-			DBObject dbAssignment = new BasicDBObject(ASSIGNMENT_NO, assignment.getAssNo());
+			DBObject dbAssignment = new BasicDBObject(ASSIGNMENT_NAME, assignment.getAssName());
 			DBCursor cursor = assignmentTable.find(dbAssignment);
 			if (cursor.hasNext()) {
-				return false;
+				return null;
 			}
 			BasicDBObject document = new BasicDBObject();
             document.put(ASSIGNMENT_NO, assignment.getAssNo());
@@ -393,9 +393,17 @@ public class MongoDBConnector {
             document.put(ASSIGNMENT_SUBMISSIONS, submissions);
             assignmentTable.insert(document);
 			
-            return true;
+			// Get the id created by MongoDB
+			cursor = assignmentTable.find(dbAssignment);
+			if (cursor.hasNext()) {
+				DBObject assObj = cursor.next();
+				return assObj.get("_id").toString();
+			}
+			else {
+				return null;
+			}
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
     

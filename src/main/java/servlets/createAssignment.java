@@ -30,9 +30,7 @@ public class createAssignment extends HttpServlet {
 		String date_str = null;
 		String spec = "";
 		Date deadline = null;
-		boolean flag = false;
-		
-		
+		String newAssID = null;
 		
 		String dateFormat = "dd/MM/yyyy HH:mm:ss";
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -98,9 +96,11 @@ public class createAssignment extends HttpServlet {
 		newAssignment.setDeadline(deadline);
 		newAssignment.setSpecification(spec);
 		
-		flag = userBean.assignmentController.createAssignment(userBean.getUser(), newAssignment);
-		if(flag)
+		newAssID = userBean.assignmentController.createAssignment(userBean.getUser(), newAssignment);
+		if(newAssID != null){
+			newAssignment.setAssID(newAssID);
 			userBean.getAssignments().add(newAssignment);
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 	    rd.forward(request, response);

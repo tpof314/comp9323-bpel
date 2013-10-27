@@ -44,11 +44,16 @@ public class AssignmentController {
 			return null;
 	}
 	
-	public boolean createAssignment(User user, Assignment assignment){
+	public String createAssignment(User user, Assignment assignment){
 		if(!user.getUserType().equals("teacher"))
-			return false;
+			return null;
 		else{
-			return mongo.addAssToDatabaseByTeacher(user.getUserName(), assignment);
+			String assID = null;
+			assID = mongo.addAssToDatabaseByTeacher(user.getUserName(), assignment);
+			if(assID == null)
+				return null;
+			else
+				return assID;
 		}
 	}
 	
