@@ -198,7 +198,6 @@ $(function() {
 			}
 		},
 		close: function() {
-			$("#upload_a_file")[0].reset();
 			$("#toolbar button.upload").tooltip().tooltip("close");
 		}
 	});
@@ -670,6 +669,7 @@ $(function() {
 		}
 	});
 	$("#toolbar button.upload").click(function() {
+		$("#upload_a_file")[0].reset();
 		$("#upload_a_file_dialog").dialog("open");
 	});
 	$("#toolbar button.compile").click(function() {
@@ -888,6 +888,9 @@ function upload_a_file() {
 			$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
 		}
 	});
+	$("#list_area").load("online-BPEL-IDE.jsp #list_area");
+	$("#create_a_new_file_dialog").load("online-BPEL-IDE.jsp #create_a_new_file_dialog");
+	$("#execute_the_project_dialog").load("online-BPEL-IDE.jsp #execute_the_project_dialog");
 	return false;
 }
 function remove_a_project(id) {
