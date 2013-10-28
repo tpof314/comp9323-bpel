@@ -1,6 +1,10 @@
 package model;
 
-
+/**
+ * File Model.
+ * A data structure for storing a file. 
+ * @author Haojie Huang, Peizhi Shao
+ */
 public class File {
     private String fileName;
     private String path;

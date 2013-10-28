@@ -3,6 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Project Model.
+ * A data structure for storing a project.
+ * @author Haojie Huang, Peizhi Shao
+ */
 public class Project{
     //Keep the state of the project.
     //State 0 means not saved.

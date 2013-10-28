@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- *
+ * Assignment Model.
+ * A data structure that records a assignment.
  * @author Haojie Huang
  */
 public class Assignment {

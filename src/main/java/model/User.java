@@ -2,6 +2,11 @@ package model;
 
 import java.util.List;
 
+/**
+ * User Model.
+ * A data structure for storing a user.
+ * @author Peizhi Shao
+ */
 public class User {
     private String userId;
     private String userName;

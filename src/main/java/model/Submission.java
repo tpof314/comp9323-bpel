@@ -4,7 +4,8 @@ package model;
 import java.util.Date;
 
 /**
- *
+ * Submission Model.
+ * A data structure for storing an assignment submission.
  * @author Haojie Huang
  */
 public class Submission {

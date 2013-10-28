@@ -3,7 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Directory Model.
+ * A data structure for storing a directory.
+ * @author Haojie Huang.
+ */
 public class Directory {
     private String dirName;
     private List<File> files;

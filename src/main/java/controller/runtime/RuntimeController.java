@@ -23,6 +23,10 @@ import model.Project;
 import model.User;
 import org.xml.sax.SAXException;
 
+/**
+ * A Controller that communicates with the BPEL Runtime Server.
+ * @author Peizhi Shao
+ */
 public class RuntimeController {
 
     private Client client;
@@ -32,6 +36,13 @@ public class RuntimeController {
     private ProjectController projectController;
     private ResultReader resultReader;
 
+	/**
+	 * Create a new Runtime Controller.
+	 * @throws GeneralSecurityException
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 * @throws ParserConfigurationException 
+	 */
     public RuntimeController() throws GeneralSecurityException, IOException, URISyntaxException, ParserConfigurationException {
         ClientConfig config = new DefaultClientConfig();
         this.client = Client.create(config);
@@ -40,6 +51,15 @@ public class RuntimeController {
         this.resultReader = new ResultReader();
     }
 
+	/**
+	 * Compiles a users' project. A full description of the mechanism can be found 
+	 * in the System Architecture docuemnt.
+	 * @param user the user.
+	 * @param project the project to be compiled.
+	 * @param isProjectModified a flag that indicate whether the project has been 
+	 *                          modified.
+	 * @return true if the project can is compiled successfully; false otherwise.
+	 */
     public boolean compile(User user, Project project, boolean isProjectModified) {
 
         if (!isProjectModified) {
@@ -113,6 +133,17 @@ public class RuntimeController {
         }
     }
 
+	/**
+	 * Execute a project specified by user. A full description of the mechanism 
+	 * can be found in the System Architecture docuemnt.
+	 * @param user the user. 
+	 * @param project the project.
+	 * @param function the function that the user wants to execute.
+	 * @param inputParam a file that contains all the parameters that the user 
+	 *                   inputs into the function.
+	 * @param isProjectModified a flag that indicates whether a project has been modified.
+	 * @return true if the project is executed successfully, false otherwise.
+	 */
     public boolean execute(User user, Project project, String function, String inputParam, boolean isProjectModified) {
         String executeResult = "";
 

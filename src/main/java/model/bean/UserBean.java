@@ -17,6 +17,13 @@ import controller.dataController.DirectoryController;
 import controller.dataController.FileController;
 import controller.runtime.RuntimeController;
 
+/**
+ * User Bean.
+ * This stored is stored in a session. When a user logs into the system, 
+ * a UserBean structure will be created for the user for storing his assignments, 
+ * projects and other useful information.
+ * @author Peizhi Shao
+ */
 public class UserBean {
     private User user;
     private Project currProj;
