@@ -92,6 +92,13 @@ public class ResultReader {
 		}
 	}
 	
+	/**
+	 * Fetch the &lt;uri&gt; tag from a given xml.
+	 * @param strXml the xml structure in string format.
+	 * @return the contain of the &lt;uri&gt; tag.
+	 * @throws SAXException
+	 * @throws IOException 
+	 */
 	public String readUri(String strXml) throws SAXException, IOException {
 		String result = "";
 		InputSource is = new InputSource(new StringReader(strXml));
