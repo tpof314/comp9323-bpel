@@ -20,11 +20,25 @@ import model.Project;
 import model.Submission;
 import model.User;
 
+/**
+ * Assignment Controller.
+ * This module provides methods for operating assignments. Each method in this 
+ * class contains a logic sequence for assignment operations. Each operation 
+ * usually combines operations provided by both GoogleConnector and 
+ * MongoDBConnector.
+ * @author Peizhi Shao
+ */
 public class AssignmentController {
 	private MongoDBConnector mongo;
 	private GoogleConnector google;
 	private JavaZip zipManager;
 	
+	/**
+	 * Create a new AssignmentController Object. Using this object, the front end
+	 * @throws GeneralSecurityException
+	 * @throws IOException
+	 * @throws URISyntaxException 
+	 */
 	public AssignmentController() throws GeneralSecurityException, IOException, URISyntaxException {
 		this.mongo = new MongoDBConnector();
 		

@@ -13,6 +13,7 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 
 /**
+ * A tool class conains keys and connection path to Google Drive.
  * To connect with Google Drive, a key must be specified. This class contains 
  * all IDs that the BPEL IDE need to connect to google.
  * @author Haojie Huang.
