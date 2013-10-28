@@ -49,6 +49,14 @@
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>register</servlet-name>
+		<servlet-class>servlets.register</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>register</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>removeAssignment</servlet-name>
 		<servlet-class>servlets.removeAssignment</servlet-class>
 	</servlet>
@@ -105,12 +113,12 @@
 		<url-pattern>/updateMark</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>updateFile</servlet-name>
-		<servlet-class>servlets.updateFile</servlet-class>
+		<servlet-name>uploadFile</servlet-name>
+		<servlet-class>servlets.uploadFile</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>updateFile</servlet-name>
-		<url-pattern>/updateFile</url-pattern>
+		<servlet-name>uploadFile</servlet-name>
+		<url-pattern>/uploadFile</url-pattern>
 	</servlet-mapping>
 	<display-name>comp9323-bpel</display-name>
     <session-config>
