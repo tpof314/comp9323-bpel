@@ -25,8 +25,13 @@ import java.util.Collections;
 import java.util.List;
 import javax.activation.MimeType;
 
+/**
+ * A tool class for connecting to Google Drive.
+ * In this IDE, users' code are saved in Google Drive. This class provides 
+ * methods for downloading, uploading and updating files from Google Drive.
+ * @author Haojie Huang
+ */
 public class GoogleConnector {
-
     private Drive service;
 
     public GoogleConnector(Drive service) {

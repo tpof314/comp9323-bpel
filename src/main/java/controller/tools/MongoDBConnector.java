@@ -14,6 +14,13 @@ import model.Project;
 import model.Submission;
 import model.User;
 
+/**
+ * A tool class for connecting to MongoDB database.
+ * This class contains all the IDs, ports and related data that's required to 
+ * connect to MongoDB. It also provides methods for operating data in the 
+ * database, such as add a user, add a project, mark an assignment etc.
+ * @author Haojie Huang
+ */
 public class MongoDBConnector {
 
     private Mongo mongo;

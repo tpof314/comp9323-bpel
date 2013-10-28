@@ -17,6 +17,10 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * A tool class for doing files/folders zipping and unzipping.
+ * @author Haojie Huang.
+ */
 public class JavaZip {
 
     private List<String> filesListInDir;
@@ -137,36 +141,8 @@ public class JavaZip {
      *
      * @param fileName Input .zip file
      * @param filePath Output directory
+	 * @return true if the zip file can be successfully unzipped.
      */
-//    public boolean unZipFile(String sourceFile, String targetFile) {
-//        File zipfile = new File(sourceFile);
-//        File outdir = new File(targetFile);
-//        try {
-//            ZipInputStream zin = new ZipInputStream(new FileInputStream(zipfile));
-//            ZipEntry entry;
-//            String name, dir;
-//            while ((entry = zin.getNextEntry()) != null) {
-//                name = entry.getName();
-//                if (entry.isDirectory()) {
-//                    mkdirs(outdir, name);
-//                    continue;
-//                }
-//
-//                dir = dirpart(name);
-//                if (dir != null) {
-//                    mkdirs(outdir, dir);
-//                }
-//
-//                extractFile(zin, outdir, name);
-//            }
-//            zin.close();
-//            
-//            return true;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
 	public boolean unZipFile(String fileName, String filePath) {
 		try {
 			int BUFFER = 4096;

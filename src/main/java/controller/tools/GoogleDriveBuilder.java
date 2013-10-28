@@ -12,6 +12,11 @@ import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
+/**
+ * To connect with Google Drive, a key must be specified. This class contains 
+ * all IDs that the BPEL IDE need to connect to google.
+ * @author Haojie Huang.
+ */
 public class GoogleDriveBuilder {
 
     private static final String SERVICE_ACCOUNT_EMAIL = "64684360303-9sfj7njggcidusas46h2494k74gl1vlq@developer.gserviceaccount.com";

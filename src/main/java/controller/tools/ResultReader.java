@@ -13,7 +13,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * A tool class for reading compile/executing results from the BPEL 
+ * Runtime Server.
  * @author Haojie Huang
  */
 public class ResultReader {
