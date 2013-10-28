@@ -34,7 +34,9 @@ public class AssignmentController {
 	private JavaZip zipManager;
 	
 	/**
-	 * Create a new AssignmentController Object. Using this object, the front end
+	 * Create a new AssignmentController Object. Using this object, the front end 
+	 * can operate an assignment model using the method provided here.
+	 * 
 	 * @throws GeneralSecurityException
 	 * @throws IOException
 	 * @throws URISyntaxException 
@@ -49,6 +51,11 @@ public class AssignmentController {
         this.zipManager = new JavaZip();
 	}
 	
+	/**
+	 * Fetch a list of assignments related to a user.
+	 * @param user the user.
+	 * @return a list of assignments.
+	 */
 	public List<Assignment> getUserAssignments(User user){
 		if(user.getUserType().equals("teacher"))
 			return mongo.loadAllAssByTeacher(user.getUserName());
@@ -58,6 +65,14 @@ public class AssignmentController {
 			return null;
 	}
 	
+	/**
+	 * Create a new assignment.
+	 * @param user the user who wants to create a new assignment.
+	 * @param assignment the assignment parameters, including the assignment name, 
+	 *        the deadline and a link to specifications.
+	 * @return an assignment id created by MongoDB. If the assignment cannot be 
+	 *         created, return null.
+	 */
 	public String createAssignment(User user, Assignment assignment){
 		if(!user.getUserType().equals("teacher"))
 			return null;
@@ -71,6 +86,13 @@ public class AssignmentController {
 		}
 	}
 	
+	/**
+	 * Remove an assignment from both the database. Only a teacher is allowed to 
+	 * do this operation.
+	 * @param user the user who wants to remove an assignment.
+	 * @param assignment the assignemnt to be removed.
+	 * @return true if the assignment is removed successfully, false otherwise.
+	 */
 	public boolean removeAssignment(User user, Assignment assignment){
 		if(!user.getUserType().equals("teacher"))
 			return false;
@@ -93,6 +115,13 @@ public class AssignmentController {
 		}
 	}
 	
+	/**
+	 * Update an assignment in the database. Only a teacher is allowed to perform
+	 * this operation. The field to be updated are assignment names and deadlines.
+	 * @param user the teacher who wants to update the assignment.
+	 * @param newAssignment the new assignment parameters.
+	 * @return true if the assignment is updated successfully, false otherwise.
+	 */
 	public boolean updateAssignment(User user, Assignment newAssignment){
 		if(!user.getUserType().equals("teacher"))
 			return false;
@@ -101,6 +130,15 @@ public class AssignmentController {
 		}
 	}
 	
+	/**
+	 * Submit an assignment. This operation can only be performed by a student.
+	 * @param user the student who wants to submit an assignment.
+	 * @param assignment the assignment to be submitted.
+	 * @param submission a submission model containing the date of submission,  
+	 *                   homework ID and the student's name.
+	 * @param project the project that the student wants to submit.
+	 * @return true if the assignment is submitted successfully, false otherwise.
+	 */
 	public boolean submitAssignment(User user, Assignment assignment, Submission submission, Project project){
 		if(!user.getUserType().equals("student"))
 			return false;
@@ -141,6 +179,13 @@ public class AssignmentController {
 		return true;
 	}
 	
+	/**
+	 * Mark an assignment. Only teachers are allowed to mark an assignment.
+	 * @param user the teacher who wants to mark a student's assignment.
+	 * @param assID the assignment ID.
+	 * @param submission the student's submission to be marked.
+	 * @return true if the marking is done successfully, false otherwise. 
+	 */
 	public boolean markSubmission(User user, String assID, Submission submission){
 		if(!user.getUserType().equals("teacher"))
 			return false;
