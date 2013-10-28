@@ -7,6 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import model.File;
 
+/**
+ * File Controller.
+ * This controller is used to control file models in the system. In the system, 
+ * operation with files only happens in the web server side.
+ * @author Peizhi Shao
+ */
 public class FileController {
     /**
      * Get the content of a file.

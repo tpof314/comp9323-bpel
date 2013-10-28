@@ -10,6 +10,11 @@ import java.io.IOException;
 import model.Directory;
 import model.File;
 
+/**
+ * Directory Controller.
+ * This controller is used to control directory models in the system.
+ * @author Peizhi Shao
+ */
 public class DirectoryController {
     /**
      * Create a file in a specific directory.

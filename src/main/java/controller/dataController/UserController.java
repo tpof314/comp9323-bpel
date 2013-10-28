@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller.dataController;
 
 import com.google.api.services.drive.Drive;
@@ -17,14 +14,21 @@ import model.Project;
 import model.User;
 
 /**
- *
- * @author Administrator
+ * User controller.
+ * A controller for user operations in the system. 
+ * @author Peizhi Shao
  */
 public class UserController {
     MongoDBConnector mongo;
     GoogleConnector google;
     JavaZip zipManager;
 
+	/**
+	 * Create a new user controller object.
+	 * @throws GeneralSecurityException
+	 * @throws IOException
+	 * @throws URISyntaxException 
+	 */
     public UserController() throws GeneralSecurityException, IOException, URISyntaxException {
         Drive drive = null;
         drive = GoogleDriveBuilder.createDriveService();
@@ -34,11 +38,24 @@ public class UserController {
         this.zipManager = new JavaZip();
     }
     
+	/**
+	 * Check if a username matches a password. If the username doesn't match the 
+	 * password, or if the username itself doesn't exist at all, return null. 
+	 * @param name the user name.
+	 * @param password the password.
+	 * @return a user structure if the user name matches the password, null otherwise.
+	 */
     public User getUserByName(String name, String password){
         
         return mongo.getUserByName(name, password);
     }
     
+	/**
+	 * Create a project. This method will create a project belongs to a user specified.
+	 * @param user the user who wants to create a project.
+	 * @param projName the name of the new project.
+	 * @return true if the project is created successfully, false otherwise.
+	 */
     public boolean createProject(User user, String projName){
         boolean flag = false;
         
@@ -91,6 +108,16 @@ public class UserController {
         return true;
     }
     
+	/**
+	 * Remove a project from the system. By calling this method, both the project id 
+	 * in the database and the actual project contain on Google Drive will be removed.
+	 * There is another removeProject() method in the ProjectController Class, 
+	 * the difference is that, this method is dealing with database and the one 
+	 * in ProjectController deals with projects on the BPEL Runtime Server.
+	 * @param user the user who wants to remove the project.
+	 * @param proj the project to be removed.
+	 * @return true if the project can be successfully removed, false otherwise.
+	 */
     public boolean removeProject(User user, Project proj){
         boolean flag = false;
         
@@ -113,6 +140,13 @@ public class UserController {
         return true;
     }
 	
+	/**
+	 * Create a user. This method is used in registration. If a username is already 
+	 * existed in the database, the method returns false.
+	 * @param username the new username
+	 * @param password the new password.
+	 * @return true if the user account is successfully created; false otherwise.
+	 */
 	public boolean createUser(String username, String password) {
 		if (mongo.userExist(username)) {
 			return false;

@@ -27,6 +27,14 @@ import model.File;
 import model.Project;
 import model.User;
 
+/**
+ * Project Controller.
+ * A controller for operating project models in the system. These operations 
+ * includes uploading a file to a project, saving a project, 
+ * removing a project etc.
+ * Most of these operation are connected to Google Drive.
+ * @author Peizhi Shao
+ */
 public class ProjectController {
     //The google drive connector;
 
@@ -206,6 +214,14 @@ public class ProjectController {
         return true;
     }
 
+	/**
+	 * Remove a project from BPEL Runtime Server. After a user leave the IDE, 
+	 * the copy he left on the BPEL Runtime Server must be removed by invoking 
+	 * this method.
+	 * @param project the project to be removed.
+	 * @return return if the project in the BPEL Runtime Server is
+	 *         successfully removed, false otherwise.
+	 */
     public boolean removeProject(Project project) {
         //Delete the bpel runtime.
         if (!project.getUri().equals("")) {
